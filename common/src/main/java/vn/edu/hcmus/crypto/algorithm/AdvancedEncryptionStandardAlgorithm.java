@@ -24,7 +24,6 @@ public class AdvancedEncryptionStandardAlgorithm extends AbstractAlgorithm
             decryptCipher.init(Cipher.DECRYPT_MODE, secret);
         }
         catch (final Exception e) {
-            System.out.println(e);
             e.printStackTrace();
         }
     }
