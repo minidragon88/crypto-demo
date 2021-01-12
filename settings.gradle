@@ -1,3 +1,4 @@
 rootProject.name='crypto-demo'
 include 'common'
 include 'crypto-server'
+include 'crypto-client'
