@@ -14,16 +14,11 @@ import java.util.Base64;
 public class DiffieHellmanKeyExchangeTest
 {
     KeyPairGenerator kpg;
+
     @Before
     public void setUp()
     {
-        try {
-            kpg = KeyPairGenerator.getInstance("DH");
-        }
-        catch (final Exception e) {
-            e.printStackTrace();
-        }
-        kpg.initialize(1024);
+        kpg = ExchangeUtils.getKeyPairGenerator();
     }
 
     @Test
@@ -57,5 +52,20 @@ public class DiffieHellmanKeyExchangeTest
         clientDH.agreeSecretKey();
         serverDH.agreeSecretKey();
         Assert.assertEquals(Base64.getEncoder().encodeToString(clientDH.getSecret()), Base64.getEncoder().encodeToString(serverDH.getSecret()));
+
+        // DES key
+        int length = 64;
+        Assert.assertEquals(length, clientDH.generateSecretBySize(length).length());
+        Assert.assertEquals(clientDH.generateSecretBySize(length), serverDH.generateSecretBySize(length));
+
+        // 3TDEA
+        length = 19;
+        Assert.assertEquals(length, clientDH.generateSecretBySize(length).length());
+        Assert.assertEquals(clientDH.generateSecretBySize(length), serverDH.generateSecretBySize(length));
+
+        // AES
+        length = 128;
+        Assert.assertEquals(length, clientDH.generateSecretBySize(length).length());
+        Assert.assertEquals(clientDH.generateSecretBySize(length), serverDH.generateSecretBySize(length));
     }
 }
