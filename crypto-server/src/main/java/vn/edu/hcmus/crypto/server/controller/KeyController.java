@@ -8,39 +8,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import vn.edu.hcmus.crypto.exchange.DiffieHellmanKeyExchange;
-import vn.edu.hcmus.crypto.exchange.ExchangeUtils;
+import vn.edu.hcmus.crypto.server.model.UserOptions;
 
-import java.security.KeyPair;
+import java.security.PublicKey;
 import java.util.Map;
 @RestController
 @RequestMapping("/key")
 public class KeyController
 {
-    private final DiffieHellmanKeyExchange dhke = getDiffieHellmanObject();
-
     @GetMapping
     public String hello()
     {
         return "Hello!";
     }
-    
+
     @GetMapping("/public-key")
     public String getPublicKey()
     {
-        return dhke.encodePublicKeyToString();
+        return UserOptions.getUserOptions().getDiffieHellmanKeyExchange().encodePublicKeyToString();
     }
 
-    @PostMapping("/register-public-key")
-    public ResponseEntity<String> register(@RequestHeader final Map<String, String> headers, @RequestBody final String publicKey)
+    @PostMapping("/register-key")
+    public ResponseEntity<String> registerKey(@RequestHeader final Map<String, String> headers, @RequestBody final String publicKey)
     {
-        return new ResponseEntity<>("abc", HttpStatus.OK);
+        final DiffieHellmanKeyExchange dhke = UserOptions.getUserOptions().getDiffieHellmanKeyExchange();
+        final PublicKey clientPublicKey = dhke.decodePublicKeyFromString(publicKey);
+        dhke.setOtherPublicKey(clientPublicKey);
+        return new ResponseEntity<>("Register successfully", HttpStatus.OK);
     }
-    
-    public DiffieHellmanKeyExchange getDiffieHellmanObject()
+
+    @PostMapping("/agree-key")
+    public ResponseEntity<String> acceptKey(@RequestHeader final Map<String, String> headers, @RequestBody final String publicKey)
     {
-        final KeyPair kp = ExchangeUtils.getKeyPairGenerator().generateKeyPair();
-        return new DiffieHellmanKeyExchange(kp.getPublic(), kp.getPrivate());
+        final DiffieHellmanKeyExchange dhke = UserOptions.getUserOptions().getDiffieHellmanKeyExchange();
+        if (dhke.getPublicKey() == null) {
+            return new ResponseEntity<>("Must register your key first", HttpStatus.BAD_REQUEST);
+        }
+        dhke.agreeSecretKey();
+        return new ResponseEntity<>("Key agreed", HttpStatus.OK);
     }
 }
