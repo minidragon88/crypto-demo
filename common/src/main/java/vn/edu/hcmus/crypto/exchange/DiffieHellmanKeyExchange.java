@@ -4,8 +4,11 @@ import com.google.common.annotations.VisibleForTesting;
 
 import javax.crypto.KeyAgreement;
 
+import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 
 public class DiffieHellmanKeyExchange
 {
@@ -47,6 +50,28 @@ public class DiffieHellmanKeyExchange
         }
         catch (final Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public PublicKey decodePublicKeyFromString(final String keyString)
+    {
+        try {
+            return KeyFactory.getInstance("DH").generatePublic(new X509EncodedKeySpec(Base64.getDecoder().decode(keyString)));
+        }
+        catch (final Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String encodePublicKeyToString()
+    {
+        try {
+            return Base64.getEncoder().encodeToString(publicKey.getEncoded());
+        }
+        catch (final Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
