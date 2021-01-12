@@ -5,9 +5,9 @@ import javax.crypto.spec.SecretKeySpec;
 
 import java.util.List;
 
-public class TripleDES extends AbstractAlgorithm
+public class AdvancedEncryptionStandardAlgorithm extends AbstractAlgorithm
 {
-    public TripleDES(final List<String> keys)
+    public AdvancedEncryptionStandardAlgorithm(final List<String> keys)
     {
         super(keys);
     }
@@ -15,15 +15,16 @@ public class TripleDES extends AbstractAlgorithm
     @Override
     public void initCipher()
     {
-        cipherMode = "DESede/ECB/PKCS5Padding";
+        cipherMode = "AES/ECB/PKCS5Padding";
         try {
-            final SecretKeySpec secret = new SecretKeySpec(keys.get(0).getBytes(), "DESede");
+            final SecretKeySpec secret = new SecretKeySpec(keys.get(0).getBytes(), "AES");
             encryptCipher = Cipher.getInstance(cipherMode);
             encryptCipher.init(Cipher.ENCRYPT_MODE, secret);
             decryptCipher = Cipher.getInstance(cipherMode);
             decryptCipher.init(Cipher.DECRYPT_MODE, secret);
         }
         catch (final Exception e) {
+            System.out.println(e);
             e.printStackTrace();
         }
     }

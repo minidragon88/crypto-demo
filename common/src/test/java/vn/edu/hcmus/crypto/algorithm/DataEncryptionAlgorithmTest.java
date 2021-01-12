@@ -28,7 +28,7 @@ public class DataEncryptionAlgorithmTest
     @Test
     public void encryptAndDecrypt128bitsMessage()
     {
-        final String message = "abcd";
+        final String message = "abcd1234efgh5678";
         final DataEncryptionAlgorithm dea = new DataEncryptionAlgorithm(Arrays.asList(secret));
         Assert.assertEquals(message, dea.decrypt(dea.encrypt(message)));
     }

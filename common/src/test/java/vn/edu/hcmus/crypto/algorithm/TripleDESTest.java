@@ -28,7 +28,7 @@ public class TripleDESTest
     @Test
     public void encryptAndDecrypt128bitsMessage()
     {
-        final String message = "abcd";
+        final String message = "abcd1234efgh5678";
         final TripleDES tripleDes = new TripleDES(Arrays.asList(secret));
         Assert.assertEquals(message, tripleDes.decrypt(tripleDes.encrypt(message)));
     }
