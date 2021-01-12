@@ -9,6 +9,7 @@ repositories {
 }
 
 dependencies {
+    compile group: 'com.google.guava', name: 'guava', version: '30.1-jre'
     testImplementation 'junit:junit:4.12'
 }
 
