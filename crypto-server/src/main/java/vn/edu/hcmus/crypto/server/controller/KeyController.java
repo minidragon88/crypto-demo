@@ -38,8 +38,8 @@ public class KeyController
         return new ResponseEntity<>("Register successfully", HttpStatus.OK);
     }
 
-    @PostMapping("/agree-key")
-    public ResponseEntity<String> acceptKey(@RequestHeader final Map<String, String> headers, @RequestBody final String publicKey)
+    @GetMapping("/agree-key")
+    public ResponseEntity<String> agreeKey(@RequestHeader final Map<String, String> headers)
     {
         final DiffieHellmanKeyExchange dhke = UserOptions.getUserOptions().getDiffieHellmanKeyExchange();
         if (dhke.getPublicKey() == null) {

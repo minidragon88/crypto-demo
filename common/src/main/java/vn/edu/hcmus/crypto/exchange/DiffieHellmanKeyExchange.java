@@ -77,7 +77,7 @@ public class DiffieHellmanKeyExchange
 
     public String generateSecretBySize(final int size)
     {
-        return Base64.getEncoder().encodeToString(secret).substring(0, size);
+        return Base64.getEncoder().encodeToString(secret).substring(0, size / 8);
     }
 
     @VisibleForTesting

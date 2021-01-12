@@ -19,10 +19,15 @@ ext {
     retrofitVersion = "2.6.2"
 }
 
+run{
+    standardInput = System.in
+}
+
 dependencies {
     compile 'com.google.guava:guava:23.0'
     compile group: 'com.squareup.retrofit2', name: 'retrofit', version: retrofitVersion
-    compile group: 'com.squareup.retrofit2', name: 'converter-gson', version: retrofitVersion
+    compile group: 'com.squareup.retrofit2', name: 'converter-scalars', version: retrofitVersion
+    compile group: 'org.slf4j', name: 'slf4j-jdk14', version: '2.0.0-alpha1'
     compile project(":common")
     testCompile 'junit:junit:4.12'
 }

@@ -24,7 +24,7 @@ public class CommunicateController
 {
     private final Logger logger = LoggerFactory.getLogger(CommunicateController.class);
 
-    @PostMapping("/register-algorithm")
+    @PostMapping("/change-algorithm")
     public ResponseEntity<String> changeAlgorithm(@RequestHeader final Map<String, String> headers, @RequestBody final String userInput)
     {
         final UserOptions userOpts = UserOptions.getUserOptions();
@@ -47,6 +47,6 @@ public class CommunicateController
         final AbstractAlgorithm algorithm = UserOptions.getUserOptions().getAlgorithm();
         final String plainText = algorithm.decrypt(message);
         logger.info("Derypted message is : " + plainText);
-        return new ResponseEntity<>("", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Plaintext is " + plainText, HttpStatus.ACCEPTED);
     }
 }
