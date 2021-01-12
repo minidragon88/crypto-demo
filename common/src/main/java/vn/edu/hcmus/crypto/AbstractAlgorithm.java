@@ -1,15 +1,16 @@
 package vn.edu.hcmus.crypto;
 
+import javax.crypto.Cipher;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.crypto.Cipher;
-
 public abstract class AbstractAlgorithm
 {
-    private List<String> keys = new ArrayList<>();
-    private Cipher encryptCipher;
-    private Cipher decryptCipher;
+    protected List<String> keys = new ArrayList<>();
+    protected Cipher encryptCipher;
+    protected Cipher decryptCipher;
+    protected String cipherMode;
 
     public AbstractAlgorithm(final List<String> keys)
     {
@@ -50,22 +51,22 @@ public abstract class AbstractAlgorithm
     {
         this.keys = keys;
     }
-    
+
     public Cipher getEncryptCipher()
     {
         return encryptCipher;
     }
-    
+
     public void setEncryptCipher(final Cipher encryptCipher)
     {
         this.encryptCipher = encryptCipher;
     }
-    
+
     public Cipher getDecryptCipher()
     {
         return decryptCipher;
     }
-    
+
     public void setDecryptCipher(final Cipher decryptCipher)
     {
         this.decryptCipher = decryptCipher;

@@ -9,3 +9,4 @@ pkg/
 .settings/*
 .project
 bin/
+.gradle/*
