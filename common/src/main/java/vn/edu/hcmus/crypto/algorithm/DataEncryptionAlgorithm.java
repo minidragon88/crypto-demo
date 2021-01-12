@@ -1,13 +1,13 @@
-package vn.edu.hcmus.crypto;
+package vn.edu.hcmus.crypto.algorithm;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 import java.util.List;
 
-public class DataStandardAlgorithm extends AbstractAlgorithm
+public class DataEncryptionAlgorithm extends AbstractAlgorithm
 {
-    public DataStandardAlgorithm(final List<String> keys)
+    public DataEncryptionAlgorithm(final List<String> keys)
     {
         super(keys);
     }

@@ -1,8 +1,9 @@
-package vn.edu.hcmus.crypto;
+package vn.edu.hcmus.crypto.algorithm;
 
 import javax.crypto.Cipher;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public abstract class AbstractAlgorithm
@@ -23,7 +24,7 @@ public abstract class AbstractAlgorithm
     public String encrypt(final String message)
     {
         try {
-            return new String(encryptCipher.doFinal(message.getBytes()));
+            return Base64.getEncoder().encodeToString(encryptCipher.doFinal(message.getBytes()));
         }
         catch (final Exception e) {
             e.printStackTrace();
@@ -34,7 +35,7 @@ public abstract class AbstractAlgorithm
     public String decrypt(final String encryptedMessage)
     {
         try {
-            return new String(decryptCipher.doFinal(encryptedMessage.getBytes()));
+            return new String(decryptCipher.doFinal(Base64.getDecoder().decode(encryptedMessage)));
         }
         catch (final Exception e) {
             e.printStackTrace();
